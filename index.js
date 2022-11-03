@@ -152,11 +152,18 @@ function countByRating(movies) {
       // Toy Story 4
     };
  */
-function findById(movies) {
+function findById(movies,id) {
+  // checking for Error message
+  if ( ! movies.length ) {           // checking if given movies array is empty
+    return null
+  }
 
-  // for (let element of movies){
-  //   if(element.imdbID)
-  // }
+  for (let element of movies){      // using a  for..of loop to iterate
+    if(element.imdbID === id){      // checking if given id in parameter is strictly equal to movies.imdbID
+      return element                // if true then return all movies based on the Id, - element refers to movies as its iterable
+    }
+  }
+  return null                       // return null if id does not match any movie
 }
 
 /**
@@ -179,7 +186,22 @@ function findById(movies) {
  *  filterByGenre(movies, "Horror")
  *  //> []
  */
-function filterByGenre() {}
+function filterByGenre(movies,genre) {
+  let moviesByGenreArray = []       // Initializing an empty array
+  
+  // checking for Error message
+  if ( ! movies.length ) {           // checking if given movies array is empty
+    return moviesByGenreArray
+  }
+
+  for( let i = 0; i < movies.length; i++ ){       // using for loop to iterate through all movies
+    if ( movies[i].genre.toLowerCase().includes( genre.toLowerCase() ) ){ // converting all movies.genre to lowercase and given genre to lowercase and 
+                                                                      // then checking if given genre is in movies object
+      moviesByGenreArray.push( movies[i] )                            // If true then push movies with matching genre
+    }
+  }
+  return moviesByGenreArray                           // Return empty array if no matching genre or movies with a matching genre
+}
 
 /**
  * getAllMoviesReleasedAtOrBeforeYear()
@@ -203,7 +225,12 @@ function filterByGenre() {}
       }
     ];
  */
-function getAllMoviesReleasedAtOrBeforeYear() {}
+function getAllMoviesReleasedAtOrBeforeYear(movies, year) {
+
+  for(let i = 0; i < movies.length; i++){
+    
+  }
+}
 
 /**
  * getBiggestBoxOfficeMovie()
