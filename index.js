@@ -230,7 +230,7 @@ function getAllMoviesReleasedAtOrBeforeYear(movies, year) {
   let moviesReleasedYearArray = []                  // Initializing an empty array
 
   for(  let i = 0; i < movies.length; i++ ){        // runnning for loop to iterate through all movies
-    
+
     if( movies[i].released.slice(-4) <= year ){     // checking if movie.released year less than or equal to given year
                                                     // movie.released year is in dd-mm-yyyy format and given year is yyyy format, 
                                                     // so using slice (-4) to get last 4 digits
@@ -251,7 +251,31 @@ function getAllMoviesReleasedAtOrBeforeYear(movies, year) {
  *  getBiggestBoxOfficeMovie(movies);
  *  //> "Incredibles 2"
  */
-function getBiggestBoxOfficeMovie() {}
+function getBiggestBoxOfficeMovie(movies) {
+
+   // checking for Error message
+   if ( ! movies.length ) {           // checking if given movies array is empty
+    return null
+  }
+
+  let biggestBoxOffice = Number( movies[0].boxOffice.slice(1).split(',').join('') ) // movie.boxoffice is string with symbols $, comma so converting to number type
+                                                                                    // using slice(1) to remove dollar
+                                                                                    // splitting into array with comma as separator
+                                                                                    // joining back into string and finally change to number type
+                                                                                    // assigning index 0 in case if there are negative values
+
+  let boxOfficeMovieName = movies[0].title                                          // initializing movie name of index 0 
+
+
+  for( let i = 0; i < movies.length; i++ ){                                         // iterating through a for loop to all movies
+    let movieBoxOffice = Number( movies[i].boxOffice.slice(1).split(',').join('') ) // block scope variable to avoid repe
+    if ( biggestBoxOffice < movieBoxOffice ){                    // checking previous value with next
+        biggestBoxOffice = movieBoxOffice                       // assigning the highest value
+        boxOfficeMovieName = movies[i].title                    // assign the name of movie with highest box office amount
+    }
+  }
+  return boxOfficeMovieName                                 // return name of the movie with the highest `boxOffice` amount.
+}
 
 // Do not change anything below this line.
 module.exports = {
