@@ -28,7 +28,23 @@ const exampleMovies = require("./movies");
       "James and the Giant Peach",
     ];
  */
-function getAllMovieTitles() {}
+function getAllMovieTitles(movies) {
+  // Declararion
+  let movieTitlesArray = []       // Initializing an empty array
+
+  // Checking for Error
+  if ( !movies.length ) {           // checking if given movies array is empty
+    return movieTitlesArray
+  }
+
+  for( let element of movies ){   // using for..of loop to iterate through all movies, element is iterable
+    movieTitlesArray.push( element.title )  // using array method push to get all the titles of movies
+  } // End of for loop
+
+  // Returning movies titles from an array of movies
+  return movieTitlesArray   
+
+} // End of function
 
 /**
  * getHighestMetascore()
@@ -41,7 +57,25 @@ function getAllMovieTitles() {}
  *  getHighestMetascore(movies);
  *  //> 96
  */
-function getHighestMetascore() {}
+function getHighestMetascore(movies) {
+  // checking for Error
+  if ( !movies.length ) {           // checking if given movies array is empty
+    return 0
+  }
+
+  // Declaration
+  let highestMetascore = Number( movies[0].metascore  ) // Converting to Number type, since metascore is in string and we need number
+
+  for(let i = 1; i < movies.length; i++){           // using a for loop from index 1 to movies.length to iterate through all movies
+    if( highestMetascore < Number( movies[i].metascore )){   // checking if previous value less than current
+        highestMetascore = Number( movies[i].metascore )    // re assigning current value to highestMetascore and running the loop till end.
+    }
+  } // end of for loop
+
+  // Return the value of highest metascore among all movies
+
+  return highestMetascore  
+} // End of function
 
 /**
  * getAverageIMDBRating()
@@ -54,7 +88,25 @@ function getHighestMetascore() {}
  *  getAverageIMDBRating(movies);
  *  //> 7.76
  */
-function getAverageIMDBRating() {}
+function getAverageIMDBRating(movies) {
+
+  // checking for Error message
+  if ( ! movies.length ) {           // checking if given movies array is empty
+    return 0
+  }
+
+  // Declaration
+  let sumIMDBRating = 0           // accumulator variable
+
+  
+  for( let element of movies ){     // using for..of loop to iterate through all movies, element is iterable
+    sumIMDBRating += Number( element.imdbRating ) // movies.imdbRating is string so we are converting to Number type here
+  } // End of for loop
+
+  // calculating the average of all IMDB Ratings
+
+  return (sumIMDBRating / movies.length) // movies.length - count of all movies, sumIMDBRating - has the sum of all movies.imdbrating
+} // End of function
 
 /**
  * countByRating()
@@ -67,7 +119,24 @@ function getAverageIMDBRating() {}
  *  countByRating(movies);
  *  //> { G: 3, PG: 7 }
  */
-function countByRating() {}
+function countByRating(movies) {
+  // Declaration
+  let objRating = {}                // Initializing an empty object
+
+  // checking for Error message
+  if ( ! movies.length ) {           // checking if given movies array is empty
+    return objRating
+  }
+
+  for(let i = 0; i < movies.length; i++){    // Iterating through all movies with a for loop
+    if( objRating [ movies[i].rated ] ){    // checking if rating (for eg. "G" ) exists - we using bracket notation for movie.rated as we dont have property
+        objRating [ movies[i].rated ] += 1 // if rating exists add 1 
+    } else {
+      objRating [ movies[i].rated ] = 1    // else start count by 1
+    }
+  }
+  return objRating                        // Returning object 
+}
 
 /**
  * findById()
@@ -83,7 +152,12 @@ function countByRating() {}
       // Toy Story 4
     };
  */
-function findById() {}
+function findById(movies) {
+
+  // for (let element of movies){
+  //   if(element.imdbID)
+  // }
+}
 
 /**
  * filterByGenre()
