@@ -134,9 +134,9 @@ function countByRating(movies) {
     } else {
       objRating [ movies[i].rated ] = 1    // else start count by 1
     }
-  }
+  } // end for loop
   return objRating                        // Returning object 
-}
+} // end function
 
 /**
  * findById()
@@ -162,9 +162,9 @@ function findById(movies,id) {
     if(element.imdbID === id){      // checking if given id in parameter is strictly equal to movies.imdbID
       return element                // if true then return all movies based on the Id, - element refers to movies as its iterable
     }
-  }
+  } // end for loop
   return null                       // return null if id does not match any movie
-}
+} // end function
 
 /**
  * filterByGenre()
@@ -199,9 +199,9 @@ function filterByGenre(movies,genre) {
                                                                       // then checking if given genre is in movies object
       moviesByGenreArray.push( movies[i] )                            // If true then push movies with matching genre
     }
-  }
+  } // end for loop
   return moviesByGenreArray                           // Return empty array if no matching genre or movies with a matching genre
-}
+} // end function
 
 /**
  * getAllMoviesReleasedAtOrBeforeYear()
@@ -227,10 +227,18 @@ function filterByGenre(movies,genre) {
  */
 function getAllMoviesReleasedAtOrBeforeYear(movies, year) {
 
-  for(let i = 0; i < movies.length; i++){
+  let moviesReleasedYearArray = []                  // Initializing an empty array
+
+  for(  let i = 0; i < movies.length; i++ ){        // runnning for loop to iterate through all movies
     
-  }
-}
+    if( movies[i].released.slice(-4) <= year ){     // checking if movie.released year less than or equal to given year
+                                                    // movie.released year is in dd-mm-yyyy format and given year is yyyy format, 
+                                                    // so using slice (-4) to get last 4 digits
+      moviesReleasedYearArray.push( movies[i] )     // if condition matches, then push movies which match the year
+    }
+  } // end of for loop
+  return moviesReleasedYearArray                    // return all movies which match to equal or less than the given year
+} // end of function
 
 /**
  * getBiggestBoxOfficeMovie()
