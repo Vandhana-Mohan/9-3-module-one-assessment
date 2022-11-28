@@ -28,23 +28,34 @@ const exampleMovies = require("./movies");
       "James and the Giant Peach",
     ];
  */
-function getAllMovieTitles(movies) {
-  // Declararion
-  let movieTitlesArray = []       // Initializing an empty array
 
-  // Checking for Error
-  if ( !movies.length ) {           // checking if given movies array is empty
-    return movieTitlesArray
-  }
+    const getAllMovieTitles = (movies) => {
+      if(!movies){
+        throw "No movies"
+      }
+      try { 
+        return movies.map(movie => movie.title) // method 2 : return movies.map(({ title }) => title);
+      } catch (error){
+        console.log(error)
+      }
+    }
+// function getAllMovieTitles(movies) {
+//   // Declararion
+//   let movieTitlesArray = []       // Initializing an empty array
 
-  for( let element of movies ){   // using for..of loop to iterate through all movies, element is iterable
-    movieTitlesArray.push( element.title )  // using array method push to get all the titles of movies
-  } // End of for loop
+//   // Checking for Error
+//   if ( !movies.length ) {           // checking if given movies array is empty
+//     return movieTitlesArray
+//   }
 
-  // Returning movies titles from an array of movies
-  return movieTitlesArray   
+//   for( let element of movies ){   // using for..of loop to iterate through all movies, element is iterable
+//     movieTitlesArray.push( element.title )  // using array method push to get all the titles of movies
+//   } // End of for loop
 
-} // End of function
+//   // Returning movies titles from an array of movies
+//   return movieTitlesArray   
+
+// } // End of function
 
 /**
  * getHighestMetascore()
@@ -141,7 +152,8 @@ function countByRating(movies) {
 /**
  * findById()
  * -----------------------------
- * Returns a movie object from an array of objects based on the ID. If the inputted `movies` array is empty or the ID does not match any movie, return `null`.
+ * Returns a movie object from an array of objects based on the ID. If the inputted `movies` array is empty or 
+ * the ID does not match any movie, return `null`.
  * @param {Object[]} movies - An array of movies. See the `movies.js` file for an example of this array.
  * @param {string} id - A unique `imdbID`.
  * @returns {Object|null} The movie object with the matching `imdbID`.
@@ -152,6 +164,8 @@ function countByRating(movies) {
       // Toy Story 4
     };
  */
+
+    
 function findById(movies,id) {
   // checking for Error message
   if ( ! movies.length ) {           // checking if given movies array is empty
@@ -169,7 +183,8 @@ function findById(movies,id) {
 /**
  * filterByGenre()
  * -----------------------------
- * Returns all movie objects with a matching genre. Case-insensitive. If the inputted `movies` array is empty or no movies match the inputted `genre`, return `[]`.
+ * Returns all movie objects with a matching genre. Case-insensitive. If the inputted `movies` array is empty 
+ * or no movies match the inputted `genre`, return `[]`.
  * @param {Object[]} movies - An array of movies. See the `movies.js` file for an example of this array.
  * @param {string} genre - The genre of a movie. (e.g. "Fantasy")
  * @returns {Object[]} An array of movies where at least one of the genres matches the `genre` inputted.
@@ -186,22 +201,26 @@ function findById(movies,id) {
  *  filterByGenre(movies, "Horror")
  *  //> []
  */
-function filterByGenre(movies,genre) {
-  let moviesByGenreArray = []       // Initializing an empty array
-  
-  // checking for Error message
-  if ( ! movies.length ) {           // checking if given movies array is empty
-    return moviesByGenreArray
+  const filterByGenre = (movies,genre) => {
+    if(!movies) {throw "No movies in genre"}
+    return movies.filter(movie => movie.genre.toLowerCase().includes(genre.toLowerCase())) || []
   }
+// function filterByGenre(movies,genre) {
+//   let moviesByGenreArray = []       // Initializing an empty array
+  
+//   // checking for Error message
+//   if ( ! movies.length ) {           // checking if given movies array is empty
+//     return moviesByGenreArray
+//   }
 
-  for( let i = 0; i < movies.length; i++ ){       // using for loop to iterate through all movies
-    if ( movies[i].genre.toLowerCase().includes( genre.toLowerCase() ) ){ // converting all movies.genre to lowercase and given genre to lowercase and 
-                                                                      // then checking if given genre is in movies object
-      moviesByGenreArray.push( movies[i] )                            // If true then push movies with matching genre
-    }
-  } // end for loop
-  return moviesByGenreArray                           // Return empty array if no matching genre or movies with a matching genre
-} // end function
+//   for( let i = 0; i < movies.length; i++ ){       // using for loop to iterate through all movies
+//     if ( movies[i].genre.toLowerCase().includes( genre.toLowerCase() ) ){ // converting all movies.genre to lowercase and given genre to lowercase and 
+//                                                                       // then checking if given genre is in movies object
+//       moviesByGenreArray.push( movies[i] )                            // If true then push movies with matching genre
+//     }
+//   } // end for loop
+//   return moviesByGenreArray                           // Return empty array if no matching genre or movies with a matching genre
+// } // end function
 
 /**
  * getAllMoviesReleasedAtOrBeforeYear()
@@ -258,11 +277,11 @@ function getBiggestBoxOfficeMovie(movies) {
     return null
   }
 
-  let biggestBoxOffice = Number( movies[0].boxOffice.slice(1).split(',').join('') ) // movie.boxoffice is string with symbols $, comma so converting to number type
-                                                                                    // using slice(1) to remove dollar
-                                                                                    // splitting into array with comma as separator
-                                                                                    // joining back into string and finally change to number type
-                                                                                    // assigning index 0 in case if there are negative values
+  let biggestBoxOffice = Number( movies[0].boxOffice.slice(1).split(',').join('') ) 
+  // movie.boxoffice is string with symbols $, comma so converting to number type
+  // using slice(1) to remove dollar splitting into array with comma as separator
+  // joining back into string and finally change to number type
+  // assigning index 0 in case if there are negative values
 
   let boxOfficeMovieName = movies[0].title                                          // initializing movie name of index 0 
 
